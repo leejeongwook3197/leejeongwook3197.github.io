@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>donggomary | Profile</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;800&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 30%, #818cf8 70%, #6366f1 100%);
+      color: #1e293b;
+      overflow-x: hidden;
+      padding: 20px;
+      position: relative;
+    }
+
+    /* 배경 은은한 파도 빛 원형 장식 */
+    .bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.5;
+      z-index: 0;
+      pointer-events: none;
+      animation: floatBg 8s ease-in-out infinite alternate;
+    }
+    .bg-circle-1 {
+      width: 320px;
+      height: 320px;
+      background: #38bdf8;
+      top: 10%;
+      left: 15%;
+    }
+    .bg-circle-2 {
+      width: 400px;
+      height: 400px;
+      background: #818cf8;
+      bottom: 10%;
+      right: 15%;
+      animation-delay: -4s;
+    }
+
+    @keyframes floatBg {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-30px) scale(1.1); }
+    }
+
+    /* 메인 카드 (Glassmorphism) */
+    .card {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 440px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 28px;
+      padding: 40px 32px;
+      box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.25),
+                  0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: cardAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes cardAppear {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 28px 50px -15px rgba(15, 23, 42, 0.3),
+                  0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+    }
+
+    /* 이모지 아바타 */
+    .avatar-wrapper {
+      position: relative;
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 8px 24px rgba(14, 165, 233, 0.25);
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.3s ease;
+    }
+
+    .avatar-wrapper:hover {
+      transform: scale(1.08) rotate(5deg);
+    }
+
+    .avatar-emoji {
+      font-size: 54px;
+      animation: waveFloat 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes waveFloat {
+      0% { transform: translateY(0) rotate(-4deg); }
+      100% { transform: translateY(-6px) rotate(4deg); }
+    }
+
+    /* 닉네임 & 소개 */
+    .nickname-tag {
+      display: inline-block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #0284c7;
+      background: #e0f2fe;
+      padding: 4px 14px;
+      border-radius: 9999px;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .nickname {
+      font-family: 'Outfit', 'Pretendard', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+
+    .bio {
+      font-size: 0.98rem;
+      color: #64748b;
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+
+    /* 섹션 타이틀 */
+    .section-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+      text-align: left;
+    }
+
+    /* 취미 리스트 */
+    .hobbies-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .hobby-card {
+      background: rgba(248, 250, 252, 0.8);
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.25s ease;
+      cursor: default;
+    }
+
+    .hobby-card:hover {
+      background: #ffffff;
+      border-color: #38bdf8;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 18px -4px rgba(56, 189, 248, 0.25);
+    }
+
+    .hobby-icon {
+      font-size: 1.9rem;
+    }
+
+    .hobby-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .hobby-sub {
+      font-size: 0.75rem;
+      color: #94a3b8;
+    }
+
+    /* 인터랙션 버튼 */
+    .btn-wave {
+      width: 100%;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      color: #ffffff;
+      border: none;
+      padding: 14px 20px;
+      border-radius: 16px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 8px 20px -4px rgba(2, 132, 199, 0.4);
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-wave:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px -4px rgba(2, 132, 199, 0.5);
+    }
+
+    .btn-wave:active {
+      transform: translateY(1px);
+    }
+
+    .wave-counter {
+      background: rgba(255, 255, 255, 0.25);
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      margin-left: 4px;
+    }
+
+    /* 떠오르는 파도/이모지 파티클 애니메이션 */
+    .particle {
+      position: fixed;
+      pointer-events: none;
+      font-size: 24px;
+      animation: floatUp 1.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      z-index: 999;
+      user-select: none;
+    }
+
+    @keyframes floatUp {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, 0) scale(0.6) rotate(0deg);
+      }
+      50% {
+        opacity: 0.9;
+        transform: translate(calc(-50% + var(--dx)), -100px) scale(1.2) rotate(var(--rot));
+      }
+      100% {
+        opacity: 0;
+        transform: translate(calc(-50% + calc(var(--dx) * 1.5)), -220px) scale(0.9) rotate(calc(var(--rot) * 2));
+      }
+    }
+
+    /* 푸터 */
+    footer {
+      margin-top: 24px;
+      font-size: 0.8rem;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+  <!-- 배경 장식 원 -->
+  <div class="bg-circle bg-circle-1"></div>
+  <div class="bg-circle bg-circle-2"></div>
+
+  <!-- 프로필 카드 -->
+  <main class="card">
+    <!-- 메인 이모지 아바타 -->
+    <div class="avatar-wrapper" id="avatar" title="클릭해보세요!">
+      <span class="avatar-emoji">🌊</span>
+    </div>
+
+    <!-- 기본 정보 -->
+    <span class="nickname-tag">Hello World</span>
+    <h1 class="nickname">donggomary</h1>
+    <p class="bio">
+      시원하고 자유로운 파도처럼 🌊<br />
+      하루하루 활기차게 살아가는 donggomary의 공간입니다.
+    </p>
+
+    <!-- 취미 섹션 -->
+    <div class="section-title">My Hobbies</div>
+    <div class="hobbies-container">
+      <div class="hobby-card">
+        <span class="hobby-icon">🏋️</span>
+        <span class="hobby-name">운동</span>
+        <span class="hobby-sub">Health & Fitness</span>
+      </div>
+      <div class="hobby-card">
+        <span class="hobby-icon">🎮</span>
+        <span class="hobby-name">게임</span>
+        <span class="hobby-sub">Gaming</span>
+      </div>
+    </div>
+
+    <!-- 인터랙티브 파도 보내기 버튼 -->
+    <button class="btn-wave" id="waveBtn">
+      <span>🌊 파도 보내기</span>
+      <span class="wave-counter" id="waveCount">0</span>
+    </button>
+
+    <footer>
+      © donggomary • Always riding the waves 🌊
+    </footer>
+  </main>
+
+  <script>
+    let count = 0;
+    const waveBtn = document.getElementById('waveBtn');
+    const waveCount = document.getElementById('waveCount');
+    const avatar = document.getElementById('avatar');
+
+    function triggerWaveEffect(e) {
+      count++;
+      waveCount.textContent = count;
+
+      // 파티클 생성
+      const x = e.clientX || window.innerWidth / 2;
+      const y = e.clientY || window.innerHeight / 2;
+
+      createParticles(x, y);
+    }
+
+    function createParticles(originX, originY) {
+      const emojis = ['🌊', '🫧', '💧', '✨', '🐬'];
+      const count = 7;
+
+      for (let i = 0; i < count; i++) {
+        const particle = document.createElement('span');
+        particle.className = 'particle';
+        particle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+        // 랜덤 편차
+        const dx = (Math.random() - 0.5) * 120 + 'px';
+        const rot = (Math.random() - 0.5) * 60 + 'deg';
+        const size = Math.floor(Math.random() * 16 + 20) + 'px';
+
+        particle.style.setProperty('--dx', dx);
+        particle.style.setProperty('--rot', rot);
+        particle.style.fontSize = size;
+        particle.style.left = originX + 'px';
+        particle.style.top = originY + 'px';
+
+        document.body.appendChild(particle);
+
+        setTimeout(() => {
+          particle.remove();
+        }, 1800);
+      }
+    }
+
+    waveBtn.addEventListener('click', (e) => {
+      triggerWaveEffect(e);
+    });
+
+    avatar.addEventListener('click', (e) => {
+      triggerWaveEffect(e);
+    });
+  </script>
+</body>
+</html>
